@@ -83,17 +83,20 @@ h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;margin-
 .status-msg.error{color:#c0392b;display:block;}
 
 footer{
-  padding:26px 5vw;border-top:1px solid var(--line);
-  display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  padding:32px 5vw 60px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;
   font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);
 }
 
 /* Extended nav for full site */
 .navlinks{flex-wrap:wrap;}
 .social-links{display:flex;gap:10px;}
-.social-links a{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);border:1px solid var(--line);
-  padding:4px 9px;border-radius:20px;}
-.social-links a:hover{color:var(--copper);border-color:var(--copper);}
+.social-links a{
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;color:var(--graphite);
+  border:1.5px solid var(--graphite);padding:7px 16px;border-radius:20px;background:#fff;
+  transition:all 0.15s ease;
+}
+.social-links a:hover{color:#fff;background:var(--copper);border-color:var(--copper);}
 footer{flex-wrap:wrap;}
 
 /* Stage rail / Cell Production */
@@ -170,12 +173,13 @@ footer{flex-wrap:wrap;}
 
 /* SUBSCRIBE MODAL */
 .modal-overlay{
-  display:none;position:fixed;inset:0;background:rgba(26,29,27,0.6);z-index:100;
-  align-items:center;justify-content:center;
+  display:none;position:fixed;inset:0;background:rgba(26,29,27,0.6);z-index:1000;
+  align-items:center;justify-content:center;padding:20px;overflow-y:auto;
 }
 .modal-overlay.show{display:flex;}
 .modal-box{
   background:#fff;border-radius:8px;padding:28px;max-width:400px;width:90%;position:relative;
+  max-height:85vh;overflow-y:auto;margin:auto;
 }
 .modal-close{position:absolute;top:12px;right:16px;cursor:pointer;font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:18px;}
 .modal-box h3{font-family:'Space Grotesk',sans-serif;font-size:19px;margin-bottom:8px;}
