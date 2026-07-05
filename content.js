@@ -60,11 +60,13 @@ function cardHTML(entry, folder) {
   const img = entry.image ? `<img src="${entry.image}" style="width:100%;border-radius:4px;margin-bottom:8px;display:block;">` : '';
   const title = entry.title || 'Untitled';
   const summary = entry.summary || '';
+  const dateStr = entry.date ? new Date(entry.date).toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'}) : '';
   return `<div class="card">
     ${img}
     ${tags}
     <h4><a href="article.html?folder=${encodeURIComponent(folder)}&slug=${encodeURIComponent(entry.slug)}" style="color:var(--graphite);">${title}</a></h4>
     <p>${summary}</p>
+    ${dateStr ? `<div class="stage-meta" style="margin-top:8px;margin-bottom:0;">${dateStr}</div>` : ''}
   </div>`;
 }
 
