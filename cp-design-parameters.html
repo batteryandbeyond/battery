@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>Before manufacturing begins, several ratios and targets are fixed at the design stage — most importantly the N/P ratio (negative-to-positive electrode capacity ratio), which governs the safety margin against lithium plating. These parameters constrain every stage that follows, from how much slurry is coated to how the cell is tested. Try the <a href="tools.html" style="color:var(--copper);text-decoration:underline;">N/P Ratio Calculator</a> to see this in practice.</p>
-  <div class="article-empty">No articles tagged "Design Parameters" yet.</div>
+  <div class="cards3" id="stage-design-parameters-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span><a href="cp-overview.html">&larr; Overview</a></span><span><a href="cp-slurry.html">Slurry &rarr;</a></span>
@@ -112,5 +112,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const filtered = entries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === "design parameters"));
+  const container = document.getElementById('stage-design-parameters-articles');
+  if (filtered.length === 0) { container.innerHTML = emptyHTML("Design Parameters"); return; }
+  container.innerHTML = filtered.map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>Lithium-ion cell manufacturing runs through two parallel electrode lines (anode and cathode) that converge at assembly. Each electrode is made by mixing active material into a slurry, coating it onto a metal foil, drying it, compressing it (calendaring), and slitting it to width. The two electrodes are then wound or stacked with a separator, sealed into a case, filled with electrolyte, and electrically activated (formation) before final testing. Quality decisions made early — in the slurry and coating stages — carry through every downstream step.</p>
-  <div class="article-empty">No articles tagged "Overview" yet.</div>
+  <div class="cards3" id="stage-overview-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span></span><span><a href="cp-design-parameters.html">Design Parameters &rarr;</a></span>
@@ -112,5 +112,15 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const container = document.getElementById('stage-overview-articles');
+  if (entries.length === 0) { container.innerHTML = emptyHTML(); return; }
+  container.innerHTML = entries.slice(0,6).map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

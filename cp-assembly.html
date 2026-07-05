@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>Assembly brings the anode, cathode, and separator together into a finished cell format. It's typically broken into several distinct sub-steps: <br><br><b>Winding / Stacking</b> — Electrodes and separator are wound (cylindrical/prismatic) or stacked (pouch) into the cell's internal structure.<br><br><b>Tab Welding</b> — Current-carrying tabs are welded to the electrode foils to connect the internal stack to the external terminals.<br><br><b>Casing</b> — The wound or stacked assembly is inserted into its case (can, pouch, or prismatic housing) and sealed.<br><br><b>Electrolyte Filling</b> — Electrolyte is injected into the sealed case under vacuum to ensure full wetting of the porous electrode structure.</p>
-  <div class="article-empty">No articles tagged "Assembly" yet.</div>
+  <div class="cards3" id="stage-assembly-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span><a href="cp-slitting.html">&larr; Slitting</a></span><span><a href="cp-formation.html">Formation &amp; Aging &rarr;</a></span>
@@ -112,5 +112,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const filtered = entries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === "assembly"));
+  const container = document.getElementById('stage-assembly-articles');
+  if (filtered.length === 0) { container.innerHTML = emptyHTML("Assembly"); return; }
+  container.innerHTML = filtered.map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

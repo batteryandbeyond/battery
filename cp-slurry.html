@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>Active material, conductive additive, and binder are mixed with a solvent into a homogeneous slurry. Uniform dispersion of the conductive additive here is critical — it's the foundation for the electronic percolation network that determines how well electrons move through the finished electrode.</p>
-  <div class="article-empty">No articles tagged "Slurry" yet.</div>
+  <div class="cards3" id="stage-slurry-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span><a href="cp-design-parameters.html">&larr; Design Parameters</a></span><span><a href="cp-coating.html">Coating &rarr;</a></span>
@@ -112,5 +112,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const filtered = entries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === "slurry"));
+  const container = document.getElementById('stage-slurry-articles');
+  if (filtered.length === 0) { container.innerHTML = emptyHTML("Slurry"); return; }
+  container.innerHTML = filtered.map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

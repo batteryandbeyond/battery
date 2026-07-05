@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>Every finished cell is tested before shipment. This typically includes several distinct checks: <br><br><b>Capacity / OCV Testing</b> — Confirms the cell delivers its rated capacity and checks open-circuit voltage for early defect detection.<br><br><b>Impedance (EIS) Testing</b> — Electrochemical impedance spectroscopy screens for internal defects and inconsistent cell assembly.<br><br><b>Leak Testing</b> — Verifies the case seal is intact and electrolyte isn't escaping.<br><br><b>Grading &amp; Sorting</b> — Cells are grouped by measured performance so packs are built from well-matched cells.</p>
-  <div class="article-empty">No articles tagged "End-of-Line Testing" yet.</div>
+  <div class="cards3" id="stage-eol-testing-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span><a href="cp-formation.html">&larr; Formation &amp; Aging</a></span><span></span>
@@ -112,5 +112,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const filtered = entries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === "eol testing"));
+  const container = document.getElementById('stage-eol-testing-articles');
+  if (filtered.length === 0) { container.innerHTML = emptyHTML("EOL Testing"); return; }
+  container.innerHTML = filtered.map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

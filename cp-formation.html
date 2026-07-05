@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>The cell undergoes its first controlled charge cycles, forming the solid-electrolyte interphase (SEI) layer on the anode — a thin passivation layer critical to long-term stability. The cell is then rested (aged) to allow this layer to stabilize before final testing.</p>
-  <div class="article-empty">No articles tagged "Formation &amp; Aging" yet.</div>
+  <div class="cards3" id="stage-formation-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span><a href="cp-assembly.html">&larr; Assembly</a></span><span><a href="cp-eol-testing.html">End-of-Line Testing &rarr;</a></span>
@@ -112,5 +112,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const filtered = entries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === "formation & aging"));
+  const container = document.getElementById('stage-formation-articles');
+  if (filtered.length === 0) { container.innerHTML = emptyHTML("Formation & Aging"); return; }
+  container.innerHTML = filtered.map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

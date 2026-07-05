@@ -51,17 +51,12 @@
 <div class="section" style="max-width:900px;">
   <input type="text" id="search-box" placeholder="Search articles..." onkeyup="filterArticles()"
     style="width:100%;padding:12px 14px;border:1px solid #ccc4b2;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:13px;margin-bottom:16px;">
-  <div class="stage-rail" style="padding:0 0 20px;">
+  <div class="stage-rail" id="tag-rail" style="padding:0 0 20px;">
     <span class="stage-pill hl" onclick="filterTag('all')">All</span>
-    <span class="stage-pill" onclick="filterTag('slitting')">Slitting</span>
-    <span class="stage-pill" onclick="filterTag('design-parameters')">Design Parameters</span>
-    <span class="stage-pill" onclick="filterTag('eol-testing')">EOL Testing</span>
   </div>
 </div>
 <div class="cards3" id="article-list">
-  <div class="card" data-tag="slitting"><span class="tag">Slitting</span><h4>Why edge quality makes or breaks a cell</h4><p>Burr formation during slitting and its downstream effect on internal shorts.</p></div>
-  <div class="card" data-tag="design-parameters"><span class="tag">Design Parameters</span><h4>Understanding the N/P ratio</h4><p>Why the negative-to-positive capacity ratio matters for safety and cycle life.</p></div>
-  <div class="card" data-tag="eol-testing"><span class="tag">EOL Testing</span><h4>What impedance testing actually tells you</h4><p>Reading EIS results without an electrochemistry PhD.</p></div>
+  <div class="article-empty">Loading articles...</div>
 </div>
 
 <div class="subscribe-cta">
@@ -74,18 +69,51 @@
   </form>
 </div>
 
+<script src="content.js"></script>
 <script>
-function filterTag(tag){
-  document.querySelectorAll('.card').forEach(card=>{
-    card.style.display = (tag === 'all' || card.dataset.tag === tag) ? '' : 'none';
-  });
+let allEntries = [];
+
+function renderCards(entries){
+  const container = document.getElementById('article-list');
+  if (entries.length === 0){ container.innerHTML = emptyHTML(); return; }
+  container.innerHTML = entries.map(e => cardHTML(e, 'content/articles')).join('');
 }
+
+function buildTagRail(entries){
+  const rail = document.getElementById('tag-rail');
+  const allTags = new Set();
+  entries.forEach(e => categoriesOf(e).forEach(c => allTags.add(c)));
+  const sorted = Array.from(allTags).sort();
+  let html = `<span class="stage-pill hl" data-tag="all" onclick="filterTag('all', this)">All</span>`;
+  sorted.forEach(tag => {
+    html += `<span class="stage-pill" data-tag="${tag}" onclick="filterTag('${tag.replace(/'/g,"\\'")}', this)">${tag}</span>`;
+  });
+  rail.innerHTML = html;
+}
+
+function setActivePill(el){
+  document.querySelectorAll('#tag-rail .stage-pill').forEach(p => p.classList.remove('hl'));
+  if (el) el.classList.add('hl');
+}
+
+function filterTag(tag, el){
+  setActivePill(el);
+  if (tag === 'all') { renderCards(allEntries); return; }
+  const filtered = allEntries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === tag.toLowerCase()));
+  renderCards(filtered);
+}
+
 function filterArticles(){
   const q = document.getElementById('search-box').value.toLowerCase();
-  document.querySelectorAll('.card').forEach(card=>{
-    card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
+  const filtered = allEntries.filter(e => ((e.title||'') + (e.summary||'')).toLowerCase().includes(q));
+  renderCards(filtered);
 }
+
+(async function(){
+  allEntries = await fetchCollection('content/articles');
+  buildTagRail(allEntries);
+  renderCards(allEntries);
+})();
 </script>
 
 <footer>

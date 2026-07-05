@@ -51,7 +51,7 @@
 </div>
 <div class="section">
   <p>The calendared electrode roll is cut into precise widths for cell assembly. Edge quality here directly affects burr formation — a leading cause of internal shorts downstream, and one of the most scrutinized quality checkpoints in the entire process.</p>
-  <div class="article-empty">No articles tagged "Slitting" yet.</div>
+  <div class="cards3" id="stage-slitting-articles"><div class="article-empty">Loading...</div></div>
 </div>
 <div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
   <span><a href="cp-calendaring.html">&larr; Calendaring</a></span><span><a href="cp-assembly.html">Assembly &rarr;</a></span>
@@ -112,5 +112,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/articles');
+  const filtered = entries.filter(e => categoriesOf(e).some(c => c.toLowerCase() === "slitting"));
+  const container = document.getElementById('stage-slitting-articles');
+  if (filtered.length === 0) { container.innerHTML = emptyHTML("Slitting"); return; }
+  container.innerHTML = filtered.map(e => cardHTML(e, 'content/articles')).join('');
+})();
+</script>
 </body>
 </html>

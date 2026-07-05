@@ -48,8 +48,8 @@
     <h1>What's happening in energy storage</h1>
   </div>
 </div>
-<div class="cards3">
-  <div class="card"><span class="tag">News</span><h4>Three energy storage patents worth watching</h4><p>Recent filings pointing toward next-generation hybrid cell designs.</p></div>
+<div class="cards3" id="news-list">
+  <div class="article-empty">Loading news...</div>
 </div>
 
 <div class="subscribe-cta">
@@ -66,6 +66,16 @@
   <span>Batteries and Beyond</span>
   <div class="social-links"><a href="#">X</a><a href="#">LinkedIn</a><a href="#">Facebook</a></div>
 </footer>
+
+<script src="content.js"></script>
+<script>
+(async function(){
+  const entries = await fetchCollection('content/news');
+  const container = document.getElementById('news-list');
+  if (entries.length === 0) { container.innerHTML = emptyHTML(); return; }
+  container.innerHTML = entries.map(e => cardHTML(e, 'content/news')).join('');
+})();
+</script>
 
 <div class="modal-overlay" id="subscribe-modal">
   <div class="modal-box">
