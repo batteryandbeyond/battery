@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cell Production — Batteries and Beyond</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark"></span>Batteries and Beyond</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <div class="nav-item">
+      <a href="cell-production.html" class="active">Cell Production</a>
+      <div class="nav-dropdown"><a href="cp-overview.html">Overview</a>
+<a href="cp-design-parameters.html">Design Parameters</a>
+<a href="cp-slurry.html">Slurry</a>
+<a href="cp-coating.html">Coating</a>
+<a href="cp-drying.html">Drying</a>
+<a href="cp-calendaring.html">Calendaring</a>
+<a href="cp-slitting.html">Slitting</a>
+<a href="cp-assembly.html">Assembly</a>
+<a href="cp-formation.html">Formation &amp; Aging</a>
+<a href="cp-eol-testing.html">End-of-Line Testing</a>
+</div>
+    </div>
+    <a href="articles.html">Articles</a>
+<a href="news.html">News</a>
+<div class="nav-item">
+      <a href="tools.html">Tools</a>
+      <div class="nav-dropdown"><a href="tools-np-ratio.html">N/P Ratio Calculator</a>
+<a href="tools-crate.html">C-rate Converter</a></div>
+    </div>
+<a href="partners.html">Partners</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+
+  </div>
+  <a href="#" class="subscribe-btn" onclick="openSubscribe(event)">Subscribe</a>
+</nav>
+<div class="cross-section"><div class="layer-cu"></div><div class="layer-gr"></div><div class="layer-sep"></div><div class="layer-gr"></div><div class="layer-al"></div></div>
+
+<div class="hero" style="grid-template-columns:1fr;">
+  <div>
+    <div class="eyebrow">Cell Production</div>
+    <h1>From slurry to sealed cell.</h1>
+    <p class="hero-sub">A working reference for every stage of lithium-ion cell manufacturing. Choose a stage below, or use the Cell Production dropdown in the nav for quick access anytime.</p>
+  </div>
+</div>
+<div class="cards3">
+<div class="card"><h4><a href="cp-overview.html" style="color:var(--graphite);">Overview</a></h4><p>Lithium-ion cell manufacturing runs through two parallel electrode lines (anode and cathode) that converge at ...</p></div>
+<div class="card"><h4><a href="cp-design-parameters.html" style="color:var(--graphite);">Design Parameters</a></h4><p>Before manufacturing begins, several ratios and targets are fixed at the design stage — most importantly the N...</p></div>
+<div class="card"><h4><a href="cp-slurry.html" style="color:var(--graphite);">Slurry</a></h4><p>Active material, conductive additive, and binder are mixed with a solvent into a homogeneous slurry...</p></div>
+<div class="card"><h4><a href="cp-coating.html" style="color:var(--graphite);">Coating</a></h4><p>The slurry is applied to a metal foil current collector (copper for anode, aluminum for cathode) at a controll...</p></div>
+<div class="card"><h4><a href="cp-drying.html" style="color:var(--graphite);">Drying</a></h4><p>The coated electrode passes through a drying oven to remove solvent...</p></div>
+<div class="card"><h4><a href="cp-calendaring.html" style="color:var(--graphite);">Calendaring</a></h4><p>The dried electrode is compressed between rollers to reduce porosity and improve particle-to-particle contact...</p></div>
+<div class="card"><h4><a href="cp-slitting.html" style="color:var(--graphite);">Slitting</a></h4><p>The calendared electrode roll is cut into precise widths for cell assembly...</p></div>
+<div class="card"><h4><a href="cp-assembly.html" style="color:var(--graphite);">Assembly</a></h4><p>Assembly brings the anode, cathode, and separator together into a finished cell format...</p></div>
+<div class="card"><h4><a href="cp-formation.html" style="color:var(--graphite);">Formation &amp; Aging</a></h4><p>The cell undergoes its first controlled charge cycles, forming the solid-electrolyte interphase (SEI) layer on...</p></div>
+<div class="card"><h4><a href="cp-eol-testing.html" style="color:var(--graphite);">End-of-Line Testing</a></h4><p>Every finished cell is tested before shipment...</p></div>
+
+</div>
+
+<footer>
+  <span>Batteries and Beyond</span>
+  <div class="social-links"><a href="#">X</a><a href="#">LinkedIn</a><a href="#">Facebook</a></div>
+</footer>
+
+<div class="modal-overlay" id="subscribe-modal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeSubscribe()">&times;</span>
+    <h3>Subscribe to Batteries and Beyond</h3>
+    <p>One email every Saturday — technical breakdowns, manufacturing deep-dives, and tools. No spam, unsubscribe anytime.</p>
+    <form id="subscribe-form">
+      <input type="email" id="subscribe-email" placeholder="you@company.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="modal-status" id="subscribe-status"></div>
+  </div>
+</div>
+<script>
+function openSubscribe(e){ if(e) e.preventDefault(); document.getElementById('subscribe-modal').classList.add('show'); }
+function closeSubscribe(){ document.getElementById('subscribe-modal').classList.remove('show'); }
+document.addEventListener('DOMContentLoaded', function(){
+  var f = document.getElementById('subscribe-form');
+  if(!f) return;
+  f.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var status = document.getElementById('subscribe-status');
+    var SUBSCRIBE_ENDPOINT = "https://formspree.io/f/REPLACE_WITH_YOUR_ID";
+    if(SUBSCRIBE_ENDPOINT.includes('REPLACE_WITH_YOUR_ID')){
+      status.textContent = 'Subscribe form not yet connected.';
+      return;
+    }
+    var email = document.getElementById('subscribe-email').value;
+    try{
+      const res = await fetch(SUBSCRIBE_ENDPOINT, {
+        method:'POST', body: JSON.stringify({email:email}),
+        headers:{'Content-Type':'application/json','Accept':'application/json'}
+      });
+      if(res.ok){ status.textContent = "You're subscribed — see you Saturday."; document.getElementById('subscribe-form').reset(); }
+      else { status.textContent = 'Something went wrong. Please try again.'; }
+    } catch(err){ status.textContent = 'Network error. Please try again.'; }
+  });
+});
+</script>
+
+</body>
+</html>

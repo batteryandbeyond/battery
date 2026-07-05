@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slitting — Batteries and Beyond</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark"></span>Batteries and Beyond</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <div class="nav-item">
+      <a href="cell-production.html" class="active">Cell Production</a>
+      <div class="nav-dropdown"><a href="cp-overview.html">Overview</a>
+<a href="cp-design-parameters.html">Design Parameters</a>
+<a href="cp-slurry.html">Slurry</a>
+<a href="cp-coating.html">Coating</a>
+<a href="cp-drying.html">Drying</a>
+<a href="cp-calendaring.html">Calendaring</a>
+<a href="cp-slitting.html">Slitting</a>
+<a href="cp-assembly.html">Assembly</a>
+<a href="cp-formation.html">Formation &amp; Aging</a>
+<a href="cp-eol-testing.html">End-of-Line Testing</a>
+</div>
+    </div>
+    <a href="articles.html">Articles</a>
+<a href="news.html">News</a>
+<div class="nav-item">
+      <a href="tools.html">Tools</a>
+      <div class="nav-dropdown"><a href="tools-np-ratio.html">N/P Ratio Calculator</a>
+<a href="tools-crate.html">C-rate Converter</a></div>
+    </div>
+<a href="partners.html">Partners</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
+
+  </div>
+  <a href="#" class="subscribe-btn" onclick="openSubscribe(event)">Subscribe</a>
+</nav>
+<div class="cross-section"><div class="layer-cu"></div><div class="layer-gr"></div><div class="layer-sep"></div><div class="layer-gr"></div><div class="layer-al"></div></div>
+
+<div class="stage-crumbs"><a href="cell-production.html">Cell Production</a> / Slitting</div>
+<div class="hero" style="grid-template-columns:1fr;padding-top:16px;">
+  <div>
+    <div class="eyebrow">Cell Production</div>
+    <h1>Slitting</h1>
+  </div>
+</div>
+<div class="section">
+  <p>The calendared electrode roll is cut into precise widths for cell assembly. Edge quality here directly affects burr formation — a leading cause of internal shorts downstream, and one of the most scrutinized quality checkpoints in the entire process.</p>
+  <div class="article-empty">No articles tagged "Slitting" yet.</div>
+</div>
+<div class="section" style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);">
+  <span><a href="cp-calendaring.html">&larr; Calendaring</a></span><span><a href="cp-assembly.html">Assembly &rarr;</a></span>
+</div>
+
+<div class="subscribe-cta">
+  <div class="eyebrow">Found this useful?</div>
+  <h4>Get one email every Saturday</h4>
+  <p>Technical breakdowns, manufacturing deep-dives, and new tools — no spam, unsubscribe anytime.</p>
+  <form class="subscribe-cta-form" onsubmit="event.preventDefault(); openSubscribe();">
+    <input type="email" placeholder="you@company.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+
+<footer>
+  <span>Batteries and Beyond</span>
+  <div class="social-links"><a href="#">X</a><a href="#">LinkedIn</a><a href="#">Facebook</a></div>
+</footer>
+
+<div class="modal-overlay" id="subscribe-modal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeSubscribe()">&times;</span>
+    <h3>Subscribe to Batteries and Beyond</h3>
+    <p>One email every Saturday — technical breakdowns, manufacturing deep-dives, and tools. No spam, unsubscribe anytime.</p>
+    <form id="subscribe-form">
+      <input type="email" id="subscribe-email" placeholder="you@company.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="modal-status" id="subscribe-status"></div>
+  </div>
+</div>
+<script>
+function openSubscribe(e){ if(e) e.preventDefault(); document.getElementById('subscribe-modal').classList.add('show'); }
+function closeSubscribe(){ document.getElementById('subscribe-modal').classList.remove('show'); }
+document.addEventListener('DOMContentLoaded', function(){
+  var f = document.getElementById('subscribe-form');
+  if(!f) return;
+  f.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var status = document.getElementById('subscribe-status');
+    var SUBSCRIBE_ENDPOINT = "https://formspree.io/f/REPLACE_WITH_YOUR_ID";
+    if(SUBSCRIBE_ENDPOINT.includes('REPLACE_WITH_YOUR_ID')){
+      status.textContent = 'Subscribe form not yet connected.';
+      return;
+    }
+    var email = document.getElementById('subscribe-email').value;
+    try{
+      const res = await fetch(SUBSCRIBE_ENDPOINT, {
+        method:'POST', body: JSON.stringify({email:email}),
+        headers:{'Content-Type':'application/json','Accept':'application/json'}
+      });
+      if(res.ok){ status.textContent = "You're subscribed — see you Saturday."; document.getElementById('subscribe-form').reset(); }
+      else { status.textContent = 'Something went wrong. Please try again.'; }
+    } catch(err){ status.textContent = 'Network error. Please try again.'; }
+  });
+});
+</script>
+
+</body>
+</html>

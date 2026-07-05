@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C-rate Converter — Batteries and Beyond</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo"><span class="logo-mark"></span>Batteries and Beyond</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <div class="nav-item">
+      <a href="cell-production.html">Cell Production</a>
+      <div class="nav-dropdown"><a href="cp-overview.html">Overview</a>
+<a href="cp-design-parameters.html">Design Parameters</a>
+<a href="cp-slurry.html">Slurry</a>
+<a href="cp-coating.html">Coating</a>
+<a href="cp-drying.html">Drying</a>
+<a href="cp-calendaring.html">Calendaring</a>
+<a href="cp-slitting.html">Slitting</a>
+<a href="cp-assembly.html">Assembly</a>
+<a href="cp-formation.html">Formation &amp; Aging</a>
+<a href="cp-eol-testing.html">End-of-Line Testing</a>
+</div>
+    </div>
+    <a href="articles.html">Articles</a>
+    <a href="news.html">News</a>
+    <div class="nav-item">
+      <a href="tools.html" class="active">Tools</a>
+      <div class="nav-dropdown"><a href="tools-np-ratio.html">N/P Ratio Calculator</a>
+<a href="tools-crate.html">C-rate Converter</a></div>
+    </div>
+    <a href="partners.html">Partners</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <a href="#" class="subscribe-btn" onclick="openSubscribe(event)">Subscribe</a>
+</nav>
+<div class="cross-section"><div class="layer-cu"></div><div class="layer-gr"></div><div class="layer-sep"></div><div class="layer-gr"></div><div class="layer-al"></div></div>
+
+<div class="stage-crumbs"><a href="tools.html">Tools</a> / C-rate Converter</div>
+<div class="hero" style="grid-template-columns:1fr;padding-top:16px;">
+  <div><div class="eyebrow">Tools</div><h1>C-rate / Current / Capacity Converter</h1></div>
+</div>
+<div class="section" style="max-width:760px;">
+<!-- C-RATE CALCULATOR -->
+  <div class="calc-card">
+    <h3>C-rate / Current / Capacity Converter</h3>
+    <p style="color:#555;font-size:13px;margin-bottom:6px;">Enter any two values to solve for the third.</p>
+    <div class="calc-formula">I = C × Q &nbsp;(Current = C-rate × Capacity)</div>
+
+    <div class="calc-row">
+      <div class="calc-field">
+        <label>C-rate (e.g. 1, 0.5, 2)</label>
+        <input type="number" id="cr-crate" placeholder="Leave blank to solve for this">
+      </div>
+      <div class="calc-field">
+        <label>Current (A)</label>
+        <input type="number" id="cr-current" placeholder="Leave blank to solve for this">
+      </div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-field">
+        <label>Capacity (Ah)</label>
+        <input type="number" id="cr-capacity" placeholder="Leave blank to solve for this">
+      </div>
+    </div>
+
+    <button class="calc-btn" onclick="calculateCRate()">Calculate</button>
+
+    <div id="cr-result" class="calc-result">
+      <div id="cr-output"></div>
+    </div>
+
+    <div class="calc-note">Fill in exactly two of the three fields and leave the one you want solved blank.</div>
+  </div>
+
+</div>
+
+
+<div class="subscribe-cta">
+  <div class="eyebrow">Found this useful?</div>
+  <h4>Get one email every Saturday</h4>
+  <p>Technical breakdowns, manufacturing deep-dives, and new tools — no spam, unsubscribe anytime.</p>
+  <form class="subscribe-cta-form" onsubmit="event.preventDefault(); openSubscribe();">
+    <input type="email" placeholder="you@company.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+</div>
+
+<div class="subscribe-cta">
+  <div class="eyebrow">Found this useful?</div>
+  <h4>Get one email every Saturday</h4>
+  <p>Technical breakdowns, manufacturing deep-dives, and new tools — no spam, unsubscribe anytime.</p>
+  <form class="subscribe-cta-form" onsubmit="event.preventDefault(); openSubscribe();">
+    <input type="email" placeholder="you@company.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+<script>
+function calculateNP(){
+  const usingThickness = !document.getElementById('thickness-mode').classList.contains('hidden');
+  let anodeAreal, cathodeAreal;
+
+  if(usingThickness){
+    const aCap = parseFloat(document.getElementById('np-anode-cap-t').value);
+    const aThick = parseFloat(document.getElementById('np-anode-thick').value); // µm
+    const aDens = parseFloat(document.getElementById('np-anode-dens').value); // g/cm3
+    const cCap = parseFloat(document.getElementById('np-cathode-cap-t').value);
+    const cThick = parseFloat(document.getElementById('np-cathode-thick').value);
+    const cDens = parseFloat(document.getElementById('np-cathode-dens').value);
+
+    if([aCap,aThick,aDens,cCap,cThick,cDens].some(v=>isNaN(v))){
+      alert('Please fill in all six fields.');
+      return;
+    }
+    // thickness (µm) -> cm: /10000 ; loading (g/cm2) = thickness(cm) * density(g/cm3)
+    const aLoadingGcm2 = (aThick/10000) * aDens;
+    const cLoadingGcm2 = (cThick/10000) * cDens;
+    anodeAreal = aCap * aLoadingGcm2 * 1000; // mAh/g * g/cm2 -> mAh/cm2 (x1000 since g not mg)
+    cathodeAreal = cCap * cLoadingGcm2 * 1000;
+  } else {
+    const aCap = parseFloat(document.getElementById('np-anode-cap').value);
+    const aLoadMg = parseFloat(document.getElementById('np-anode-load').value); // mg/cm2
+    const cCap = parseFloat(document.getElementById('np-cathode-cap').value);
+    const cLoadMg = parseFloat(document.getElementById('np-cathode-load').value);
+
+    if([aCap,aLoadMg,cCap,cLoadMg].some(v=>isNaN(v))){
+      alert('Please fill in all four fields.');
+      return;
+    }
+    anodeAreal = aCap * (aLoadMg/1000); // mAh/g * g/cm2
+    cathodeAreal = cCap * (cLoadMg/1000);
+  }
+
+  const ratio = anodeAreal / cathodeAreal;
+  document.getElementById('np-value').textContent = ratio.toFixed(3);
+
+  const chem = document.getElementById('np-chemistry').value;
+  const ranges = {
+    'graphite': [1.04, 1.20, 'Graphite'],
+    'silicon-blend': [1.2, 1.6, 'Silicon-blended (20–50% Si)'],
+    'silicon-dominant': [2.0, 4.0, 'Silicon-dominant anode'],
+    'lto': [0.87, 1.02, 'LTO-based']
+  };
+  const [lo, hi, label] = ranges[chem];
+  let status = (ratio >= lo && ratio <= hi)
+    ? `✓ Within the typical cited range for ${label} (${lo}–${hi}).`
+    : `Outside the typical cited range for ${label} (${lo}–${hi}) — often reflects a deliberate fast-charge, energy-density, or safety-margin tradeoff. Not necessarily an error.`;
+  document.getElementById('np-range-note').textContent = status;
+  document.getElementById('np-result').classList.add('show');
+}
+
+function calculateCRate(){
+  const cEl = document.getElementById('cr-crate');
+  const iEl = document.getElementById('cr-current');
+  const qEl = document.getElementById('cr-capacity');
+  const c = parseFloat(cEl.value);
+  const i = parseFloat(iEl.value);
+  const q = parseFloat(qEl.value);
+
+  const filled = [!isNaN(c), !isNaN(i), !isNaN(q)].filter(Boolean).length;
+  if(filled !== 2){
+    alert('Please fill in exactly two of the three fields.');
+    return;
+  }
+
+  let output = '';
+  if(isNaN(c)){
+    const result = i / q;
+    output = `C-rate = <span class="big">${result.toFixed(3)}C</span>`;
+  } else if(isNaN(i)){
+    const result = c * q;
+    output = `Current = <span class="big">${result.toFixed(3)} A</span>`;
+  } else {
+    const result = i / c;
+    output = `Capacity = <span class="big">${result.toFixed(3)} Ah</span>`;
+  }
+  document.getElementById('cr-output').innerHTML = output;
+  document.getElementById('cr-result').classList.add('show');
+}
+</script>
+
+<footer>
+  <span>Batteries and Beyond</span>
+  <div class="social-links"><a href="#">X</a><a href="#">LinkedIn</a><a href="#">Facebook</a></div>
+</footer>
+
+<div class="modal-overlay" id="subscribe-modal">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeSubscribe()">&times;</span>
+    <h3>Subscribe to Batteries and Beyond</h3>
+    <p>One email every Saturday — technical breakdowns, manufacturing deep-dives, and tools. No spam, unsubscribe anytime.</p>
+    <form id="subscribe-form">
+      <input type="email" id="subscribe-email" placeholder="you@company.com" required>
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="modal-status" id="subscribe-status"></div>
+  </div>
+</div>
+<script>
+function openSubscribe(e){ if(e) e.preventDefault(); document.getElementById('subscribe-modal').classList.add('show'); }
+function closeSubscribe(){ document.getElementById('subscribe-modal').classList.remove('show'); }
+document.addEventListener('DOMContentLoaded', function(){
+  var f = document.getElementById('subscribe-form');
+  if(!f) return;
+  f.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var status = document.getElementById('subscribe-status');
+    var SUBSCRIBE_ENDPOINT = "https://formspree.io/f/REPLACE_WITH_YOUR_ID";
+    if(SUBSCRIBE_ENDPOINT.includes('REPLACE_WITH_YOUR_ID')){
+      status.textContent = 'Subscribe form not yet connected.';
+      return;
+    }
+    var email = document.getElementById('subscribe-email').value;
+    try{
+      const res = await fetch(SUBSCRIBE_ENDPOINT, {
+        method:'POST', body: JSON.stringify({email:email}),
+        headers:{'Content-Type':'application/json','Accept':'application/json'}
+      });
+      if(res.ok){ status.textContent = "You're subscribed — see you Saturday."; document.getElementById('subscribe-form').reset(); }
+      else { status.textContent = 'Something went wrong. Please try again.'; }
+    } catch(err){ status.textContent = 'Network error. Please try again.'; }
+  });
+});
+</script>
+
+</body>
+</html>
