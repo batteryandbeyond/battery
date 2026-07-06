@@ -150,6 +150,7 @@ footer{flex-wrap:wrap;}
 
 /* Card accent stripe */
 .card{position:relative;overflow:hidden;}
+.card img{height:140px;object-fit:cover;object-position:top;}
 .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--copper);}
 .card .tag{background:#eaf3f1;color:var(--teal);}
 
@@ -203,3 +204,13 @@ footer{flex-wrap:wrap;}
 /* Stage crumbs within Cell Production sub-pages */
 .stage-crumbs{padding:14px 5vw 0;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);}
 .stage-crumbs a{color:var(--copper);}
+
+/* Center images within article body markdown content */
+.article-body img{
+  display:block;
+  margin:20px auto;
+  max-width:100%;
+  border-radius:6px;
+}
+.article-body p{margin-bottom:16px;}
+.article-body h2, .article-body h3{margin-top:28px;margin-bottom:12px;}
