@@ -55,11 +55,17 @@ function categoriesOf(entry) {
   return [];
 }
 
+function truncate(text, maxLen) {
+  if (!text) return '';
+  if (text.length <= maxLen) return text;
+  return text.slice(0, maxLen).replace(/\s+\S*$/, '') + '…';
+}
+
 function cardHTML(entry, folder) {
   const tags = categoriesOf(entry).map(c => `<span class="tag">${c}</span>`).join(' ');
   const img = entry.image ? `<img src="${entry.image}" style="width:100%;border-radius:4px;margin-bottom:8px;display:block;">` : '';
   const title = entry.title || 'Untitled';
-  const summary = entry.summary || '';
+  const summary = truncate(entry.summary || '', 140);
   const dateStr = entry.date ? new Date(entry.date).toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'}) : '';
   return `<div class="card">
     ${img}
