@@ -95,12 +95,27 @@ function closeSubscribe(){ document.getElementById('subscribe-modal').classList.
   }
   const tags = categoriesOf(entry).map(c => `<span class="tag">${c}</span>`).join(' ');
   const dateStr = entry.date ? new Date(entry.date).toLocaleDateString(undefined, {year:'numeric', month:'long', day:'numeric'}) : '';
+  const shareUrl = encodeURIComponent(location.href);
+  const shareTitle = encodeURIComponent(entry.title || 'Batteries and Beyond');
   el.innerHTML = `
     <div style="margin-bottom:10px;">${tags}</div>
     <h1 style="margin-bottom:8px;">${entry.title || 'Untitled'}</h1>
-    <div class="stage-meta" style="margin-bottom:20px;">${dateStr}</div>
+    <div class="stage-meta" style="margin-bottom:16px;">${dateStr}</div>
+    <div class="social-links" style="margin-bottom:24px;">
+      <a href="https://x.com/intent/tweet?url=${shareUrl}&text=${shareTitle}" target="_blank" rel="noopener">X</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" rel="noopener">Facebook</a>
+    </div>
     ${entry.image ? `<img src="${entry.image}" style="width:100%;border-radius:8px;margin-bottom:24px;">` : ''}
     <div class="article-body" style="font-size:15px;line-height:1.75;color:#333;">${marked.parse(entry.body || '')}</div>
+    <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--line);">
+      <div class="stage-meta" style="margin-bottom:10px;">Share this</div>
+      <div class="social-links">
+        <a href="https://x.com/intent/tweet?url=${shareUrl}&text=${shareTitle}" target="_blank" rel="noopener">X</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
   `;
 })();
 </script>
