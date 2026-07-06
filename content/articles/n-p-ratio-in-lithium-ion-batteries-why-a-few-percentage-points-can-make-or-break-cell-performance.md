@@ -11,7 +11,7 @@ Every battery engineer eventually encounters the N/P ratio. At first glance, it 
 
 Whether developing high-energy electric vehicle batteries, optimizing manufacturing processes, or designing next-generation silicon-rich anodes, engineers continuously balance two competing objectives: maximizing energy density while maintaining long-term safety and reliability. The N/P ratio lies at the heart of this balance, making it one of the most carefully optimized parameters in modern cell design.
 
-This article explains what the N/P ratio is, why it matters, how it is determined in practice, and the engineering trade-offs that influence its selection in commercial lithium-ion batteries. ![](/images/1781796100547.jfif)
+This article explains what the N/P ratio is, why it matters, how it is determined in practice, and the engineering trade-offs that influence its selection in commercial lithium-ion batteries. ![](/images/np%20ratio.jpg)
 
 # What Is the N/P Ratio?
 
