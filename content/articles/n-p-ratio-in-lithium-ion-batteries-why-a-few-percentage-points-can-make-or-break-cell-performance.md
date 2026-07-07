@@ -28,6 +28,10 @@ An N/P ratio greater than 1 means that the anode is intentionally designed with 
 
 It is important to note that the N/P ratio is **not a material property**. Instead, it is a cell-level design parameter determined during electrode balancing. Two batteries using identical cathode and anode materials may have different N/P ratios depending on their performance targets, charging strategy, manufacturing capability, and expected service life.
 
+Here is a simple calculator tool for quick calculation!
+
+https://www.batterybeyond.com/tools-np-ratio
+
 ***
 
 # Why Does the N/P Ratio Matter?
