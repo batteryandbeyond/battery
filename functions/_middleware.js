@@ -48,6 +48,7 @@ export async function onRequest(context) {
       })
       .on('head', {
         element(el) {
+          el.append(`<meta name="description" content="${escape(summary)}">`, { html: true });
           el.append(`<meta property="og:title" content="${escape(title)}">`, { html: true });
           el.append(`<meta property="og:description" content="${escape(summary)}">`, { html: true });
           el.append(`<meta property="og:type" content="article">`, { html: true });
