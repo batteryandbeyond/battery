@@ -13,7 +13,7 @@ Graphite stores lithium by intercalation: Li⁺ ions insert between the layered 
 
 Silicon breaks that ceiling through a different storage mechanism entirely: alloying. Instead of inserting between layers, lithium atoms bond directly with silicon atoms, forming a sequence of Li-Si phases that terminates near Li₁₅Si₄ at room temperature (some literature cites the higher-temperature Li₂₂Si₅ phase, \~4,200 mAh/g, as the absolute theoretical limit). The room-temperature practical ceiling most commonly cited is **3,579 mAh/g** — very close to 10x graphite.
 
-![](/images/pasted-image-1783545509608.png)
+![](20260708-143502.png)
 
 That gap is why no OEM seriously debates _whether_ to add silicon anymore — the debate is entirely about _how much_, and how to survive the consequences.
 
@@ -86,9 +86,7 @@ Silicon changes that assumption. Depending on architecture and engineering matur
 
 To capture this, N/P has to be evaluated using each electrode's **first-cycle reversible capacity**, not its charge capacity: 
 
-![](20260708-142629.png)
-
-![](20260708-142817.png)
+![](20260708-143714.png)
 
 **Worked example.** Take our 90/10 Si-C composite (693 mAh/g theoretical) with an illustrative blended CE₁ of 88% (a reasonable engineered value at 10% Si loading — bare silicon runs lower, well-buffered composites at low Si content can run higher), paired against an NMC811 cathode with CE₁ = 92%:
 
