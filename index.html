@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Batteries and Beyond — Energy storage, from materials to manufacturing</title>
 <link rel="stylesheet" href="style.css">
+<script src="content.js"></script>
 </head>
 <body>
 
@@ -56,10 +57,11 @@
   <p><a href="cell-production.html" style="color:var(--copper);text-decoration:underline;">Browse the full process →</a></p>
 </div>
 
-<div class="cards3">
-  <div class="card"><span class="tag">Design Parameters</span><h4>Understanding the N/P ratio</h4><p>Why the negative-to-positive capacity ratio matters for safety and cycle life — plus a calculator.</p></div>
-  <div class="card"><span class="tag">Tools</span><h4>C-rate / Current / Capacity Converter</h4><p>Solve for any one value from the other two, instantly.</p></div>
-  <div class="card"><span class="tag">Cell Production</span><h4>Why edge quality makes or breaks a cell</h4><p>Burr formation during slitting and its downstream effect on internal shorts.</p></div>
+<div class="section">
+  <h2>Latest</h2>
+</div>
+<div class="cards3" id="latest-cards">
+  <div class="card"><p>Loading…</p></div>
 </div>
 
 <footer>
@@ -100,6 +102,18 @@ document.getElementById('subscribe-form').addEventListener('submit', async funct
     else { status.textContent = 'Something went wrong. Please try again.'; }
   } catch(err){ status.textContent = 'Network error. Please try again.'; }
 });
+
+(async function(){
+  const articles = await fetchCollection('content/articles');
+  const news = await fetchCollection('content/news');
+  const combined = [...articles, ...news]
+    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+    .slice(0, 3);
+  const container = document.getElementById('latest-cards');
+  container.innerHTML = combined.length
+    ? combined.map(e => cardHTML(e, e.folder || 'content/articles')).join('')
+    : '<p>No posts yet.</p>';
+})();
 </script>
 
 </body>
