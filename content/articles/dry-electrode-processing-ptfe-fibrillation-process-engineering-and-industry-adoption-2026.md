@@ -25,9 +25,9 @@ Dry electrode processing eliminates the liquid phase, making it a genuinely solv
 
 **Dry route (emerging):** Powders → High-Shear Dry Mixing → PTFE Fibrillation (film formation) → Film Lamination (heated rollers, onto foil) → Calendering
 
-The infographic above summarizes the full wet-vs-dry comparison covered in this article — process flow, binder cohesion physics, and where each major manufacturer currently stands.
+The infographic below![](/images/drywet%20electrode.png)
 
-![](/images/drywet%20electrode.png)
+ summarizes the full wet-vs-dry comparison covered in this article — process flow, binder cohesion physics, and where each major manufacturer currently stands.
 
 The critical distinction is at the film-formation stage. In the wet route, the film only becomes solid once the solvent evaporates during oven drying — the coating is liquid right up until that point. In the dry route, the film is already a solid, cohesive, free-standing sheet _before_ it ever touches the current collector foil. It is then laminated onto the foil under heat and pressure, not cast as a liquid.
 
@@ -77,7 +77,7 @@ Development status varies significantly by manufacturer, electrode chemistry, an
 
 ## Engineering Trade-Offs: Wet vs. Dry Solvent-Free Electrode Manufacturing
 
-![](20260710-082058.png)
+![](20260710-084316.png)
 
 Neither route is universally superior — the right choice depends on target chemistry, cell format, production scale, and how much process-control risk a manufacturer is willing to absorb during ramp-up.
 
